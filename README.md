@@ -1,4 +1,4 @@
-# 🎙️ Tacotron 2 - Text to Speech Synthesis
+# 🎙️ SistemaSintesisVozDeepLearning - Text to Speech Synthesis
 
 Sistema de síntesis de voz basado en **Tacotron 2**, desarrollado con **PyTorch** para convertir texto en voz natural mediante redes neuronales profundas. Este proyecto implementa la arquitectura propuesta en el artículo *Natural TTS Synthesis by Conditioning WaveNet on Mel Spectrogram Predictions*, utilizando espectrogramas Mel para generar audio de alta calidad.
 
@@ -32,7 +32,7 @@ Sistema de síntesis de voz basado en **Tacotron 2**, desarrollado con **PyTorch
 ## 📂 Estructura del Proyecto
 
 ```bash
-Tacotron2/
+SistemaSintesisVozDeepLearning/
 ├── data/
 ├── filelists/
 ├── hparams.py
@@ -62,8 +62,8 @@ Antes de comenzar, asegúrate de contar con:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/NVIDIA/tacotron2.git
-cd tacotron2
+git clone https://github.com/isairey/SistemaSintesisVozDeepLearning.git
+cd SistemaSintesisVozDeepLearning
 ```
 
 ### 2. Inicializar submódulos
@@ -88,7 +88,7 @@ pip install torch torchvision torchaudio
 ### 5. Instalar Apex
 
 ```bash
-git clone https://github.com/NVIDIA/apex
+git clone https://github.com/isairey/apex
 cd apex
 pip install -v --disable-pip-version-check --no-cache-dir ./
 ```
@@ -235,12 +235,12 @@ Implementación optimizada de WaveNet para síntesis de voz de alta velocidad.
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Desarrollador
 
-Proyecto basado en la implementación oficial de NVIDIA Tacotron 2 y adaptado para investigación, aprendizaje y desarrollo de sistemas avanzados de síntesis de voz mediante Deep Learning.
+Isai Reyes - FullStack Developer
 
 ---
 
 ## 📜 Licencia
 
-Este proyecto se distribuye bajo la licencia especificada por los autores originales de NVIDIA Tacotron 2.
+MIT
