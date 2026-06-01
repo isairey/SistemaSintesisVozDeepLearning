@@ -88,8 +88,8 @@ pip install torch torchvision torchaudio
 ### 5. Instalar Apex
 
 ```bash
-git clone https://github.com/isairey/apex
-cd apex
+git clone https://github.com/isaireyOptimizacionDeepLearning
+cd OptimizacionDeepLearning
 pip install -v --disable-pip-version-check --no-cache-dir ./
 ```
 
