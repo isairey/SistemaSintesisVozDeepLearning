@@ -1,81 +1,246 @@
-# Tacotron 2 (without wavenet)
+# 🎙️ Tacotron 2 - Text to Speech Synthesis
 
-PyTorch implementation of [Natural TTS Synthesis By Conditioning
-Wavenet On Mel Spectrogram Predictions](https://arxiv.org/pdf/1712.05884.pdf). 
+Sistema de síntesis de voz basado en **Tacotron 2**, desarrollado con **PyTorch** para convertir texto en voz natural mediante redes neuronales profundas. Este proyecto implementa la arquitectura propuesta en el artículo *Natural TTS Synthesis by Conditioning WaveNet on Mel Spectrogram Predictions*, utilizando espectrogramas Mel para generar audio de alta calidad.
 
-This implementation includes **distributed** and **automatic mixed precision** support
-and uses the [LJSpeech dataset](https://keithito.com/LJ-Speech-Dataset/).
+---
 
-Distributed and Automatic Mixed Precision support relies on NVIDIA's [Apex] and [AMP].
+## 📌 Características
 
-Visit our [website] for audio samples using our published [Tacotron 2] and
-[WaveGlow] models.
+* Conversión de texto a voz (TTS) basada en Deep Learning.
+* Implementación desarrollada en PyTorch.
+* Soporte para entrenamiento distribuido (Multi-GPU).
+* Compatible con Automatic Mixed Precision (AMP).
+* Utiliza el conjunto de datos LJSpeech.
+* Generación de espectrogramas Mel.
+* Compatible con modelos preentrenados.
+* Preparado para integración con vocoders como WaveGlow.
 
-![Alignment, Predicted Mel Spectrogram, Target Mel Spectrogram](tensorboard.png)
+---
 
+## 🛠️ Tecnologías Utilizadas
 
-## Pre-requisites
-1. NVIDIA GPU + CUDA cuDNN
+* Python 3
+* PyTorch
+* CUDA
+* cuDNN
+* NVIDIA Apex
+* TensorBoard
+* Jupyter Notebook
 
-## Setup
-1. Download and extract the [LJ Speech dataset](https://keithito.com/LJ-Speech-Dataset/)
-2. Clone this repo: `git clone https://github.com/NVIDIA/tacotron2.git`
-3. CD into this repo: `cd tacotron2`
-4. Initialize submodule: `git submodule init; git submodule update`
-5. Update .wav paths: `sed -i -- 's,DUMMY,ljs_dataset_folder/wavs,g' filelists/*.txt`
-    - Alternatively, set `load_mel_from_disk=True` in `hparams.py` and update mel-spectrogram paths 
-6. Install [PyTorch 1.0]
-7. Install [Apex]
-8. Install python requirements or build docker image 
-    - Install python requirements: `pip install -r requirements.txt`
+---
 
-## Training
-1. `python train.py --output_directory=outdir --log_directory=logdir`
-2. (OPTIONAL) `tensorboard --logdir=outdir/logdir`
+## 📂 Estructura del Proyecto
 
-## Training using a pre-trained model
-Training using a pre-trained model can lead to faster convergence  
-By default, the dataset dependent text embedding layers are [ignored]
+```bash
+Tacotron2/
+├── data/
+├── filelists/
+├── hparams.py
+├── train.py
+├── inference.ipynb
+├── requirements.txt
+├── tensorboard.png
+└── README.md
+```
 
-1. Download our published [Tacotron 2] model
-2. `python train.py --output_directory=outdir --log_directory=logdir -c tacotron2_statedict.pt --warm_start`
+---
 
-## Multi-GPU (distributed) and Automatic Mixed Precision Training
-1. `python -m multiproc train.py --output_directory=outdir --log_directory=logdir --hparams=distributed_run=True,fp16_run=True`
+## ⚙️ Requisitos Previos
 
-## Inference demo
-1. Download our published [Tacotron 2] model
-2. Download our published [WaveGlow] model
-3. `jupyter notebook --ip=127.0.0.1 --port=31337`
-4. Load inference.ipynb 
+Antes de comenzar, asegúrate de contar con:
 
-N.b.  When performing Mel-Spectrogram to Audio synthesis, make sure Tacotron 2
-and the Mel decoder were trained on the same mel-spectrogram representation. 
+* GPU NVIDIA compatible con CUDA.
+* CUDA Toolkit instalado.
+* cuDNN configurado correctamente.
+* Python 3.8 o superior.
+* Git.
 
+---
 
-## Related repos
-[WaveGlow](https://github.com/NVIDIA/WaveGlow) Faster than real time Flow-based
-Generative Network for Speech Synthesis
+## 🚀 Instalación
 
-[nv-wavenet](https://github.com/NVIDIA/nv-wavenet/) Faster than real time
-WaveNet.
+### 1. Clonar el repositorio
 
-## Acknowledgements
-This implementation uses code from the following repos: [Keith
-Ito](https://github.com/keithito/tacotron/), [Prem
-Seetharaman](https://github.com/pseeth/pytorch-stft) as described in our code.
+```bash
+git clone https://github.com/NVIDIA/tacotron2.git
+cd tacotron2
+```
 
-We are inspired by [Ryuchi Yamamoto's](https://github.com/r9y9/tacotron_pytorch)
-Tacotron PyTorch implementation.
+### 2. Inicializar submódulos
 
-We are thankful to the Tacotron 2 paper authors, specially Jonathan Shen, Yuxuan
-Wang and Zongheng Yang.
+```bash
+git submodule init
+git submodule update
+```
 
+### 3. Instalar dependencias
 
-[WaveGlow]: https://drive.google.com/open?id=1rpK8CzAAirq9sWZhe9nlfvxMF1dRgFbF
-[Tacotron 2]: https://drive.google.com/file/d/1c5ZTuT7J08wLUoVZ2KkUs_VdZuJ86ZqA/view?usp=sharing
-[pytorch 1.0]: https://github.com/pytorch/pytorch#installation
-[website]: https://nv-adlr.github.io/WaveGlow
-[ignored]: https://github.com/NVIDIA/tacotron2/blob/master/hparams.py#L22
-[Apex]: https://github.com/nvidia/apex
-[AMP]: https://github.com/NVIDIA/apex/tree/master/apex/amp
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Instalar PyTorch
+
+```bash
+pip install torch torchvision torchaudio
+```
+
+### 5. Instalar Apex
+
+```bash
+git clone https://github.com/NVIDIA/apex
+cd apex
+pip install -v --disable-pip-version-check --no-cache-dir ./
+```
+
+---
+
+## 📚 Preparación del Dataset
+
+Descargar el dataset **LJSpeech**:
+
+https://keithito.com/LJ-Speech-Dataset/
+
+Extraer los archivos y actualizar las rutas en:
+
+```bash
+filelists/*.txt
+```
+
+Sustituyendo:
+
+```text
+DUMMY
+```
+
+por la ruta correspondiente a:
+
+```text
+ljs_dataset_folder/wavs
+```
+
+---
+
+## 🎯 Entrenamiento
+
+Para iniciar el entrenamiento:
+
+```bash
+python train.py --output_directory=outdir --log_directory=logdir
+```
+
+Visualizar métricas con TensorBoard:
+
+```bash
+tensorboard --logdir=outdir/logdir
+```
+
+---
+
+## 🔥 Entrenamiento con Modelo Preentrenado
+
+Descarga un modelo Tacotron 2 previamente entrenado y ejecuta:
+
+```bash
+python train.py \
+--output_directory=outdir \
+--log_directory=logdir \
+-c tacotron2_statedict.pt \
+--warm_start
+```
+
+Beneficios:
+
+* Convergencia más rápida.
+* Menor tiempo de entrenamiento.
+* Mejor estabilidad inicial.
+
+---
+
+## ⚡ Entrenamiento Multi-GPU y AMP
+
+Para utilizar múltiples GPUs y precisión mixta:
+
+```bash
+python -m multiproc train.py \
+--output_directory=outdir \
+--log_directory=logdir \
+--hparams=distributed_run=True,fp16_run=True
+```
+
+Ventajas:
+
+* Mayor velocidad de entrenamiento.
+* Menor consumo de memoria GPU.
+* Escalabilidad para datasets grandes.
+
+---
+
+## 🎧 Inferencia
+
+### 1. Descargar modelos
+
+* Tacotron 2
+* WaveGlow
+
+### 2. Ejecutar Jupyter Notebook
+
+```bash
+jupyter notebook --ip=127.0.0.1 --port=31337
+```
+
+### 3. Abrir
+
+```text
+inference.ipynb
+```
+
+Introducir texto y generar audio sintetizado.
+
+---
+
+## 📊 Resultados
+
+El sistema genera:
+
+* Alineaciones de atención.
+* Espectrogramas Mel predichos.
+* Espectrogramas Mel reales.
+* Audio sintetizado de alta calidad.
+
+Además, puede monitorearse el proceso de entrenamiento mediante TensorBoard.
+
+---
+
+## 🔗 Modelos Relacionados
+
+### WaveGlow
+
+Vocoder basado en Flow Networks para generación de audio en tiempo real.
+
+### nv-WaveNet
+
+Implementación optimizada de WaveNet para síntesis de voz de alta velocidad.
+
+---
+
+## 📖 Referencias
+
+* Natural TTS Synthesis by Conditioning WaveNet on Mel Spectrogram Predictions.
+* LJSpeech Dataset.
+* PyTorch.
+* NVIDIA Apex.
+* WaveGlow.
+* Tacotron 2.
+
+---
+
+## 👨‍💻 Autor
+
+Proyecto basado en la implementación oficial de NVIDIA Tacotron 2 y adaptado para investigación, aprendizaje y desarrollo de sistemas avanzados de síntesis de voz mediante Deep Learning.
+
+---
+
+## 📜 Licencia
+
+Este proyecto se distribuye bajo la licencia especificada por los autores originales de NVIDIA Tacotron 2.
